@@ -1,5 +1,17 @@
 .mainContainer {
-  margin-top: 10%;
+  position: absolute;
+  height: calc(100% - 50px);
+  top: 50px;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+}
+.searchBar {
+  margin: auto;
+}
+.currentWeatherPane {
+  margin: auto;
+  text-align: center;
+  flex: 0 0 30%;
 }
