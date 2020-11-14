@@ -11,7 +11,10 @@ const WeatherContainer = () => {
     current_condition_icon: "",
     current_conditon_text: "",
     current_location: "",
+    current_temperature_feels_like: "",
     selected_unit: "Celcius",
+    current_humidity: "",
+    forecast_data: {},
   });
 
   useEffect(() => {
@@ -22,6 +25,9 @@ const WeatherContainer = () => {
         current_location: `${response.data.location.name}, ${response.data.location.country}`,
         current_condition_icon: response.data.current.condition.icon,
         current_condition_text: response.data.current.condition.text,
+        current_temperature_feels_like: response.data.current.feelslike_c,
+        current_humidity: response.data.current.humidity,
+        forecast_data: response.data.forecast,
       });
     });
   }, []);
@@ -52,14 +58,26 @@ const WeatherContainer = () => {
           </Typography>
         </div>
         <div className={classes.extraInfo}>
-          <img
-            src={weatherData.current_condition_icon}
-            alt={weatherData.current_condition_text}
-          />
-          <Typography variant="subtitle1">
-            {weatherData.current_condition_text}
-          </Typography>
+          <div>
+            <img
+              src={weatherData.current_condition_icon}
+              alt={weatherData.current_condition_text}
+            />
+            <Typography variant="subtitle1">
+              {weatherData.current_condition_text}
+            </Typography>
+          </div>
+          <div className={classes.extraInfoSide}>
+            <Typography variant="h6">
+              Feels Like{" "}
+              <strong>{weatherData.current_temperature_feels_like}°</strong>
+            </Typography>
+            <Typography variant="h6">
+              Humidity <strong>{weatherData.current_humidity}%</strong>
+            </Typography>
+          </div>
         </div>
+        <div className={classes.forecastGraph}></div>
       </div>
     </div>
   );
