@@ -4,6 +4,7 @@ import axios from "axios";
 import classes from "./WeatherContainer.module.css";
 import Header from "../../component/Header/Header";
 import { TextField, Typography } from "@material-ui/core";
+import WeatherForecastChart from "../../component/WeatherForecastChart/WeatherForecastChart";
 
 const WeatherContainer = () => {
   const [weatherData, setWeatherData] = useState({
@@ -14,7 +15,9 @@ const WeatherContainer = () => {
     current_temperature_feels_like: "",
     selected_unit: "Celcius",
     current_humidity: "",
-    forecast_data: {},
+    forecast_data: {
+      forecastday: [],
+    },
   });
 
   useEffect(() => {
@@ -28,6 +31,9 @@ const WeatherContainer = () => {
         current_temperature_feels_like: response.data.current.feelslike_c,
         current_humidity: response.data.current.humidity,
         forecast_data: response.data.forecast,
+        forecastChart: (
+          <WeatherForecastChart forecastData={response.data.forecast} />
+        ),
       });
     });
   }, []);
@@ -77,7 +83,7 @@ const WeatherContainer = () => {
             </Typography>
           </div>
         </div>
-        <div className={classes.forecastGraph}></div>
+        <div className={classes.forecastGraph}>{weatherData.forecastChart}</div>
       </div>
     </div>
   );
